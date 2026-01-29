@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Página inicial</h1>
+
+<span>{{message}}</span>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ form.name.label }}
+        {{ form.name() }}
+        <div>
+            {% for error in form.name.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email() }}
+    </div>
+
+    <div class="form-group">
+        {{ form.subject.label }}
+        {{ form.subject() }}
+    </div>
+
+    <div class="form-group">
+        {{ form.message.label }}
+        {{ form.message() }}
+    </div>
+
+    <button type="submit">Enviar</button>
+</form>
+{% endblock %}
