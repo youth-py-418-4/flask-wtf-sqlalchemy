@@ -2,7 +2,9 @@ from flask import Flask
 from flask_login import LoginManager
 from routes.auth import auth_routes
 from routes.dashboard import dashboard_routes
+from routes.posts import post_routes
 from connection import db
+from definitions.category import Category
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'qualquer-coisa'
@@ -26,8 +28,10 @@ def load_user(user_id):
 
 app.register_blueprint(auth_routes, url_prefix='/auth')
 app.register_blueprint(dashboard_routes)
+app.register_blueprint(post_routes, url_prefix='/dashboard/posts')
 
 with app.app_context():
+    db.drop_all()
     db.create_all()
 
 app.run(debug=True)
