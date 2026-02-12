@@ -1,6 +1,6 @@
 from connection import db
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField
+from wtforms import StringField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Length
 
 class PostForm(FlaskForm):
@@ -8,7 +8,7 @@ class PostForm(FlaskForm):
         DataRequired(),
         Length(max=50)
     ])
-    content = StringField('Conteúdo', [
+    content = TextAreaField('Conteúdo', [
         DataRequired(),
         Length(max=500)
     ])

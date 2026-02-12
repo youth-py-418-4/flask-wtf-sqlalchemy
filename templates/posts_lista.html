@@ -1,14 +1,73 @@
 {% extends 'dashboard.html' %}
 
 {% block content %}
-<div class="container">
-    <h1>Posts</h1>
+<form method="post">
+    {{ form.hidden_tag() }}
 
-    <table>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Novo post</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        {{ form.title.label(class='form-label') }}
+                        {{ form.title(class='form-control', placeholder='Titulo do post') }}
+                        <div>
+                            {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form.category.label(class='form-label') }}
+                        {{ form.category(class='form-control', placeholder='Titulo do post') }}
+                        <div>
+                            {% for error in form.category.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form.content.label(class='form-label') }}
+                        {{ form.content(class='form-control', placeholder='Titulo do post') }}
+                        <div>
+                            {% for error in form.content.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<div class="container">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1>Posts</h1>
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Novo post
+            </button>
+        </div>
+    </div>
+
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Titulo</th>
                 <th>Autor</th>
+                <th>Categoria</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +75,7 @@
                 <tr>
                     <td>{{ post.title }}</td>
                     <td>{{ post.author }}</td>
+                    <td>{{ post.category }}</td>
                 </tr>
             {% endfor %}
         </tbody>
